@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview Coach - Master Your Next Technical Interview</title>
+    <meta name="description" content="Prepare for your technical interviews with personalized, AI-generated questions, model answers, revision concepts, and typical mistakes. Powered by Gemini.">
+    
+    <!-- Google Fonts: Plus Jakarta Sans for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- App Header / Navbar -->
+    <header class="app-header">
+        <div class="container header-container">
+            <a href="#" class="logo-area" id="nav-logo">
+                <div class="logo-icon">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <span class="logo-text">AI Interview <span class="accent-text">Coach</span></span>
+            </a>
+            <nav class="nav-links">
+                <a href="#hero-section" class="nav-link active" id="link-home">Home</a>
+                <a href="#dashboard-section" class="nav-link" id="link-dashboard">Dashboard</a>
+                <button class="btn btn-secondary btn-icon" id="btn-history-toggle" title="View History">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </button>
+                <button class="btn btn-secondary btn-icon" id="btn-settings-toggle" title="API Settings">
+                    <i data-lucide="settings"></i>
+                    <span>API Config</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Landing / Application Space -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge-new">
+                        <span class="pulse-dot"></span>
+                        <span>Now powered by Gemini 2.5 Flash</span>
+                    </div>
+                    <h1>Master Your Next <br><span class="gradient-text">Technical Interview</span></h1>
+                    <p class="hero-subtitle">
+                        Get personalized, role-specific practice questions, model answers, core concepts, and mistake logs generated instantly by advanced intelligence.
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="#dashboard-section" class="btn btn-primary btn-large" id="btn-hero-start">
+                            <span>Start Prep Session</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                        <button class="btn btn-secondary btn-large" id="btn-hero-config">
+                            <i data-lucide="key-round"></i>
+                            <span>Configure API Key</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <!-- Glassmorphism dashboard preview -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="preview-title">AI Coach Dashboard</span>
+                        </div>
+                        <div class="preview-body">
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line long"></div>
+                            <div class="preview-grid">
+                                <div class="preview-box">
+                                    <div class="box-icon"><i data-lucide="terminal"></i></div>
+                                    <div class="skeleton-line short"></div>
+                                </div>
+                                <div class="preview-box">
+                                    <div class="box-icon"><i data-lucide="help-circle"></i></div>
+                                    <div class="skeleton-line short"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-line long"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="container features-container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <h3>10 Tailored Questions</h3>
+                        <p>Receive challenging questions custom-generated for your target job role and experience level.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="check-circle-2"></i>
+                        </div>
+                        <h3>Detailed Model Answers</h3>
+                        <p>Study standard-setting answers to learn how to structure responses and highlight value.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <h3>Concepts to Revise</h3>
+                        <p>Identify underlying topics and technologies you must master before stepping into the room.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="alert-triangle"></i>
+                        </div>
+                        <h3>Common Pitfalls</h3>
+                        <p>Learn exactly what candidates do wrong and avoid typical traps for each concept.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Coach Dashboard Section -->
+        <section id="dashboard-section" class="dashboard-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Setup Your Mock Interview</h2>
+                    <p>Enter your target role and parameters below. Our AI will curate a complete preparation pack.</p>
+                </div>
+
+                <div class="dashboard-layout">
+                    <!-- Form Control Sidebar (Left) -->
+                    <aside class="dashboard-sidebar">
+                        <form id="interview-generator-form" class="generator-form" onsubmit="return false;">
+                            <!-- Session Mode Selection -->
+                            <div class="form-group">
+                                <label>
+                                    <i data-lucide="award"></i>
+                                    <span>Preparation Mode</span>
+                                </label>
+                                <div class="segmented-control">
+                                    <input type="radio" name="session_mode" id="mode-prep" value="prep" checked>
+                                    <label for="mode-prep" class="segment-label">
+                                        <span>Study Pack</span>
+                                    </label>
+
+                                    <input type="radio" name="session_mode" id="mode-mock" value="mock">
+                                    <label for="mode-mock" class="segment-label">
+                                        <span>Live Mock</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Job Role Input -->
+                            <div class="form-group">
+                                <label for="job-role-input">
+                                    <i data-lucide="briefcase"></i>
+                                    <span>Target Job Role</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="job-role-input" placeholder="e.g. Frontend Engineer, Product Manager" required autocomplete="off">
+                                    <div id="autocomplete-suggestions" class="suggestions-list hidden">
+                                        <!-- Suggestions injected via JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Experience Level Input -->
+                            <div class="form-group">
+                                <label for="experience-level-select">
+                                    <i data-lucide="trending-up"></i>
+                                    <span>Experience Level</span>
+                                </label>
+                                <div class="select-wrapper">
+                                     <select id="experience-level-select" required>
+                                         <option value="" disabled selected>Select level...</option>
+                                         <option value="Fresher (No Experience)">Fresher (No Experience)</option>
+                                         <option value="Entry-Level (1-2 years)">Entry-Level (1-2 years)</option>
+                                         <option value="Mid-Level (2-5 years)">Mid-Level (2-5 years)</option>
+                                         <option value="Senior-Level (5-8 years)">Senior-Level (5-8 years)</option>
+                                         <option value="Lead / Manager (8+ years)">Lead / Manager (8+ years)</option>
+                                     </select>
+                                </div>
+                            </div>
+
+                            <!-- Difficulty Level Dropdown -->
+                            <div class="form-group">
+                                <label for="difficulty-level-select">
+                                    <i data-lucide="gauge"></i>
+                                    <span>Interview Difficulty</span>
+                                </label>
+                                <div class="select-wrapper">
+                                     <select id="difficulty-level-select" required>
+                                         <option value="Easy">Easy</option>
+                                         <option value="Medium" selected>Medium</option>
+                                         <option value="Hard">Hard</option>
+                                     </select>
+                                </div>
+                            </div>
+
+                            <!-- Focus Area Select -->
+                            <div class="form-group">
+                                <label for="focus-area-select">
+                                    <i data-lucide="target"></i>
+                                    <span>Interview Focus Area</span>
+                                </label>
+                                <div class="select-wrapper">
+                                     <select id="focus-area-select" required>
+                                         <option value="Technical" selected>Technical Interview</option>
+                                         <option value="HR">HR Interview</option>
+                                         <option value="Behavioral">Behavioral (STAR) Interview</option>
+                                         <option value="System Design">System Design Interview</option>
+                                         <option value="Mixed">Mixed Interview</option>
+                                     </select>
+                                </div>
+                            </div>
+
+                            <!-- Number of Questions Select -->
+                            <div class="form-group">
+                                <label for="questions-count-select">
+                                    <i data-lucide="hash"></i>
+                                    <span>Number of Questions</span>
+                                </label>
+                                <div class="select-wrapper">
+                                     <select id="questions-count-select" required>
+                                         <option value="3">3 Questions</option>
+                                         <option value="5">5 Questions</option>
+                                         <option value="10" selected>10 Questions</option>
+                                         <option value="15">15 Questions</option>
+                                         <option value="20">20 Questions</option>
+                                     </select>
+                                </div>
+                            </div>
+
+                            <!-- Answer Style Select -->
+                            <div class="form-group">
+                                <label for="answer-style-select">
+                                    <i data-lucide="message-square"></i>
+                                    <span>Answer Style</span>
+                                </label>
+                                <div class="select-wrapper">
+                                     <select id="answer-style-select" required>
+                                         <option value="Detailed" selected>Detailed Answer (STAR method)</option>
+                                         <option value="Short">Short Answer (Concise bullet points)</option>
+                                     </select>
+                                </div>
+                            </div>
+
+
+                            <!-- Generate Button -->
+                            <button type="submit" class="btn btn-primary btn-full" id="btn-generate">
+                                <i data-lucide="wand2"></i>
+                                <span>Generate Questions</span>
+                            </button>
+                        </form>
+                    </aside>
+
+                    <!-- Workspace Panel (Right) -->
+                    <div class="dashboard-workspace">
+                        <!-- State 1: Welcome Placeholder -->
+                        <div id="workspace-placeholder" class="workspace-state active">
+                            <div class="placeholder-content">
+                                <div class="placeholder-icon">
+                                    <i data-lucide="message-square-code"></i>
+                                </div>
+                                <h3>Waiting to Generate</h3>
+                                <p>Provide your target role, experience, and preferred difficulty level on the left, then click <strong>Generate Questions</strong> to start your mock prep pack.</p>
+                                <div class="placeholder-api-warning hidden" id="placeholder-api-warning">
+                                    <i data-lucide="info"></i>
+                                    <span>Warning: No Gemini API Key configured. Please add one to begin.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- State 2: Loading State -->
+                        <div id="workspace-loading" class="workspace-state">
+                            <div class="loading-content">
+                                <div class="loading-spinner-wrapper">
+                                    <div class="spinner-ring"></div>
+                                    <div class="spinner-ring inner"></div>
+                                    <div class="spinner-icon">
+                                        <i data-lucide="cpu" class="animate-pulse"></i>
+                                    </div>
+                                </div>
+                                <h3 class="animate-pulse">Consulting the Coach...</h3>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <p id="loading-tip-text" class="loading-tip">Initializing generative framework...</p>
+                            </div>
+                        </div>
+
+                        <!-- State 3: Error State -->
+                        <div id="workspace-error" class="workspace-state">
+                            <div class="error-content">
+                                <div class="error-icon-wrapper">
+                                    <i data-lucide="x-circle"></i>
+                                </div>
+                                <h3>Generation Failed</h3>
+                                <p id="error-message-text">An unexpected error occurred during model invocation. Please check your settings.</p>
+                                <button class="btn btn-secondary" id="btn-error-retry">
+                                    <i data-lucide="rotate-ccw"></i>
+                                    <span>Try Again</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- State 4: Success Results Section -->
+                        <div id="workspace-results" class="workspace-state">
+                            <!-- Results Header Details -->
+                            <div class="results-meta-card">
+                                <div class="meta-header">
+                                    <div class="meta-title-group">
+                                        <h3 id="results-role">Software Engineer</h3>
+                                        <div class="meta-badges">
+                                            <span class="badge" id="results-level">Senior</span>
+                                            <span class="badge" id="results-difficulty">Hard</span>
+                                        </div>
+                                    </div>
+                                    <div class="meta-stats">
+                                        <div class="stat-item">
+                                            <i data-lucide="clock"></i>
+                                            <span>Est. Time: 90 mins</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cards List Grid -->
+                            <div class="cards-grid" id="interview-cards-container">
+                                <!-- Cards dynamically created via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- State 5: Live Mock Interview Session -->
+                        <div id="workspace-mock-session" class="workspace-state">
+                            <!-- Progress Stats Header -->
+                            <div class="results-meta-card">
+                                <div class="meta-header">
+                                    <div class="meta-title-group">
+                                        <h3>Mock Interview in Progress</h3>
+                                        <div class="meta-badges">
+                                            <span class="badge" id="mock-session-role">Role</span>
+                                            <span class="badge" id="mock-session-level">Level</span>
+                                            <span class="badge" id="mock-session-difficulty">Difficulty</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-section">
+                                    <div class="progress-labels">
+                                        <span id="mock-progress-text">Question 1 of 10</span>
+                                        <span id="mock-progress-percentage">10% Complete</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill" id="mock-progress-bar-fill" style="width: 10%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Active Question Card -->
+                            <div class="interview-card active-question-card">
+                                <div class="card-header-area">
+                                    <div class="card-number" id="mock-question-number-badge">1</div>
+                                    <div class="card-title-group">
+                                        <h4 id="mock-active-question-text">Loading question...</h4>
+                                    </div>
+                                </div>
+                                 <div class="card-content-area answer-textarea-wrapper">
+                                     <p class="start-instruction"><i data-lucide="info"></i> Read the question carefully and type your answer below.</p>
+                                     <div class="form-group" style="margin-top: 1rem;">
+                                         <label for="mock-user-answer" id="mock-answer-label">Your Answer</label>
+                                         <textarea id="mock-user-answer" rows="8" placeholder="Type your detailed answer here..."></textarea>
+                                         <div class="textarea-help">
+                                             <span id="mock-char-counter">0 characters</span>
+                                             <span class="tip"><i data-lucide="info"></i> STAR framework is recommended.</span>
+                                         </div>
+                                     </div>
+                                     <div class="action-row">
+                                         <button class="btn btn-primary" id="btn-mock-submit">
+                                             <i data-lucide="send"></i>
+                                             <span>Submit Answer</span>
+                                         </button>
+                                     </div>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- State 6: Live Answer Evaluation -->
+                        <div id="workspace-mock-evaluation" class="workspace-state">
+                            <div class="results-meta-card evaluation-header-card">
+                                <h3>Answer Submitted Successfully</h3>
+                                <p>Review your live feedback below before proceeding to the next question.</p>
+                            </div>
+
+                            <!-- Evaluation Score Dashboard -->
+                            <div class="evaluation-grid">
+                                <!-- Overall Score Circle -->
+                                <div class="evaluation-score-circle-card">
+                                    <div class="score-ring-wrapper">
+                                        <svg class="score-svg" viewBox="0 0 100 100">
+                                            <circle class="ring-bg" cx="50" cy="50" r="40"></circle>
+                                            <circle class="ring-fill" id="eval-score-ring" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                                        </svg>
+                                        <div class="score-text">
+                                            <span id="eval-score-num">0</span>
+                                            <span class="total">/10</span>
+                                        </div>
+                                    </div>
+                                    <h4>Overall Score</h4>
+                                    <span class="badge-status" id="eval-score-status">Excellent</span>
+                                </div>
+
+                                <!-- Sub scores Details List -->
+                                <div class="evaluation-subscores-card">
+                                    <h4>Assessment Breakdown</h4>
+                                    <div class="subscore-items">
+                                        <div class="subscore-item">
+                                            <div class="subscore-info">
+                                                <span>Technical Accuracy</span>
+                                                <strong id="sub-tech-val">Good</strong>
+                                            </div>
+                                            <div class="progress-bar-container"><div class="progress-bar-fill" id="sub-tech-bar" style="width: 80%;"></div></div>
+                                        </div>
+                                        <div class="subscore-item">
+                                            <div class="subscore-info">
+                                                <span>Communication Skills</span>
+                                                <strong id="sub-comm-val">Good</strong>
+                                            </div>
+                                            <div class="progress-bar-container"><div class="progress-bar-fill" id="sub-comm-bar" style="width: 80%;"></div></div>
+                                        </div>
+                                        <div class="subscore-item">
+                                            <div class="subscore-info">
+                                                <span>Completeness</span>
+                                                <strong id="sub-comp-val">Average</strong>
+                                            </div>
+                                            <div class="progress-bar-container"><div class="progress-bar-fill" id="sub-comp-bar" style="width: 60%;"></div></div>
+                                        </div>
+                                        <div class="subscore-item">
+                                            <div class="subscore-info">
+                                                <span>Confidence Indicators</span>
+                                                <strong id="sub-conf-val">Excellent</strong>
+                                            </div>
+                                            <div class="progress-bar-container"><div class="progress-bar-fill" id="sub-conf-bar" style="width: 90%;"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feedback Details Card -->
+                            <div class="interview-card feedback-details-card">
+                                <!-- Tabs for Feedback vs Model Answer -->
+                                <div class="card-tabs-bar">
+                                    <button class="tab-trigger active" data-tab="eval-feedback">
+                                        <i data-lucide="message-square"></i>
+                                        <span>Improvement Feedback</span>
+                                    </button>
+                                    <button class="tab-trigger" data-tab="eval-model-answer">
+                                        <i data-lucide="check-circle-2"></i>
+                                        <span>Ideal Model Answer</span>
+                                    </button>
+                                </div>
+                                <div class="card-content-area">
+                                    <div class="tab-pane active markdown-content" id="pane-eval-feedback">
+                                        <p id="eval-feedback-text">Feedback details...</p>
+                                    </div>
+                                    <div class="tab-pane markdown-content" id="pane-eval-model-answer">
+                                        <p id="eval-model-text">Model answer text...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action button -->
+                            <div class="action-row text-right">
+                                <button class="btn btn-primary btn-large" id="btn-eval-next">
+                                    <span>Continue Interview</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- State 7: Mock Interview Final Report -->
+                        <div id="workspace-mock-report" class="workspace-state">
+                            <!-- Overall circular dashboard header -->
+                            <div class="report-dashboard-grid">
+                                <!-- circular score card -->
+                                <div class="report-score-card">
+                                    <div class="score-ring-wrapper large">
+                                        <svg class="score-svg" viewBox="0 0 100 100">
+                                            <circle class="ring-bg" cx="50" cy="50" r="40"></circle>
+                                            <circle class="ring-fill" id="report-overall-ring" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                                        </svg>
+                                        <div class="score-text">
+                                            <span id="report-overall-score">0</span>
+                                            <span class="total">/10</span>
+                                        </div>
+                                    </div>
+                                    <h3>Overall Performance</h3>
+                                    <span class="badge-status large" id="report-overall-status">Excellent</span>
+                                </div>
+
+                                <!-- metrics grid -->
+                                <div class="report-metrics-grid">
+                                    <div class="metric-kpi-card">
+                                        <div class="kpi-icon"><i data-lucide="code-2"></i></div>
+                                        <div class="kpi-info">
+                                            <span>Technical Skills</span>
+                                            <h4 id="report-kpi-tech">0/10</h4>
+                                        </div>
+                                    </div>
+                                    <div class="metric-kpi-card">
+                                        <div class="kpi-icon"><i data-lucide="message-square"></i></div>
+                                        <div class="kpi-info">
+                                            <span>Communication</span>
+                                            <h4 id="report-kpi-comm">0/10</h4>
+                                        </div>
+                                    </div>
+                                    <div class="metric-kpi-card">
+                                        <div class="kpi-icon"><i data-lucide="sparkles"></i></div>
+                                        <div class="kpi-info">
+                                            <span>Confidence Level</span>
+                                            <h4 id="report-kpi-conf">0/10</h4>
+                                        </div>
+                                    </div>
+                                    <div class="metric-kpi-card">
+                                        <div class="kpi-icon"><i data-lucide="brain"></i></div>
+                                        <div class="kpi-info">
+                                            <span>Problem Solving</span>
+                                            <h4 id="report-kpi-solving">0/10</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weak / Strong Areas detection card -->
+                            <div class="areas-detection-grid">
+                                <div class="area-card strong-areas">
+                                    <h4><i data-lucide="check-circle-2"></i> Strong Areas</h4>
+                                    <div class="area-badges-list" id="report-strong-areas-list">
+                                        <!-- badges injected via js -->
+                                    </div>
+                                </div>
+                                <div class="area-card weak-areas">
+                                    <h4><i data-lucide="alert-circle"></i> Weak Areas</h4>
+                                    <div class="area-badges-list" id="report-weak-areas-list">
+                                        <!-- badges injected via js -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Details Log and Study Plan Tabs -->
+                            <div class="interview-card report-details-tabs-card">
+                                <div class="card-tabs-bar">
+                                    <button class="tab-trigger active" data-tab="report-log">
+                                        <i data-lucide="list"></i>
+                                        <span>Answer Log</span>
+                                    </button>
+                                    <button class="tab-trigger" data-tab="report-roadmap">
+                                        <i data-lucide="calendar"></i>
+                                        <span>7-Day Study Roadmap</span>
+                                    </button>
+                                </div>
+                                <div class="card-content-area">
+                                    <!-- Tab 1: Detailed QA Log -->
+                                    <div class="tab-pane active" id="pane-report-log">
+                                        <div class="accordion-container" id="report-log-accordion">
+                                            <!-- Question Logs accordion blocks injected via JS -->
+                                        </div>
+                                    </div>
+                                    <!-- Tab 2: 7-day personalized study roadmap -->
+                                    <div class="tab-pane markdown-content" id="pane-report-roadmap">
+                                        <div id="report-roadmap-content">
+                                            <!-- Dynamic 7-day tables -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Exit panel actions -->
+                            <div class="action-row text-center">
+                                <button class="btn btn-secondary" id="btn-report-exit">
+                                    <i data-lucide="home"></i>
+                                    <span>Exit to Home</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global API Settings Modal -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>
+                    <i data-lucide="sliders"></i>
+                    <span>AI Provider Configuration</span>
+                </h3>
+                <button class="btn-close" id="btn-settings-close" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-intro">Choose your AI provider. You can use Google Gemini (Cloud API) or run a local offline model using Ollama.</p>
+                
+                <!-- AI Provider Selection -->
+                <div class="form-group">
+                    <label>Active AI Provider</label>
+                    <div class="segmented-control provider-select-control">
+                        <input type="radio" name="ai_provider" id="provider-gemini" value="gemini" checked>
+                        <label for="provider-gemini" class="segment-label">
+                            <span>Google Gemini</span>
+                        </label>
+
+                        <input type="radio" name="ai_provider" id="provider-ollama" value="ollama">
+                        <label for="provider-ollama" class="segment-label">
+                            <span>Local Ollama</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Gemini API Settings Section -->
+                <div id="settings-section-gemini" class="provider-section">
+                    <div class="api-key-status-indicator" id="key-status-box" style="margin-bottom: 1rem;">
+                        <span class="status-dot"></span>
+                        <span id="key-status-text">Not Configured</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settings-api-key">Gemini API Key</label>
+                        <div class="input-password-wrapper">
+                            <input type="password" id="settings-api-key" placeholder="Enter your Gemini API key...">
+                            <button class="btn-icon-only" id="btn-toggle-key-visibility" type="button" title="Toggle visibility">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                        <small class="form-help">
+                            Get a free API key from <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Ollama Settings Section -->
+                <div id="settings-section-ollama" class="provider-section hidden">
+                    <div class="form-group">
+                        <label for="settings-ollama-url">Ollama Endpoint URL</label>
+                        <input type="text" id="settings-ollama-url" placeholder="http://localhost:11434" value="http://localhost:11434">
+                        <small class="form-help">Default endpoint for Ollama is http://localhost:11434</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settings-ollama-model-select">Ollama Model</label>
+                        <div class="select-wrapper">
+                            <select id="settings-ollama-model-select">
+                                <option value="llama3.2:latest" selected>llama3.2:latest (3B, 2.0 GB)</option>
+                                <option value="llama3:latest">llama3:latest (8B, 4.7 GB)</option>
+                                <option value="llama3:8b">llama3:8b (8B, 4.7 GB)</option>
+                                <option value="llama3.2:1b-instruct-q4_K_M">llama3.2:1b-instruct-q4_K_M (1B, 807 MB)</option>
+                                <option value="custom">Custom Model Name...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="custom-ollama-model-group">
+                        <label for="settings-ollama-model-custom">Custom Model Name</label>
+                        <input type="text" id="settings-ollama-model-custom" placeholder="e.g. gemma2:latest">
+                    </div>
+                </div>
+
+                <div class="settings-actions">
+                    <button class="btn btn-secondary" id="btn-settings-clear">Clear Settings</button>
+                    <div class="right-actions">
+                        <button class="btn btn-secondary" id="btn-settings-cancel">Cancel</button>
+                        <button class="btn btn-primary" id="btn-settings-save">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Session History Modal -->
+    <div id="history-modal" class="modal-overlay">
+        <div class="modal-card modal-large">
+            <div class="modal-header">
+                <h3>
+                    <i data-lucide="history"></i>
+                    <span>Interview History</span>
+                </h3>
+                <button class="btn-close" id="btn-history-close" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Track your technical mock interview progress. You can review or delete individual session records below.</p>
+                
+                <div class="history-list-wrapper" id="history-items-container">
+                    <!-- History entries dynamically generated in JS -->
+                </div>
+
+                <div class="history-actions">
+                    <button class="btn btn-secondary btn-danger" id="btn-history-clear-all">Clear All History</button>
+                    <button class="btn btn-primary" id="btn-history-cancel">Close Panel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 AI Interview Coach. Built with HTML, CSS, JavaScript & Gemini API.</p>
+            <div class="footer-links">
+                <a href="#hero-section">Home</a>
+                <a href="#dashboard-section">Dashboard</a>
+                <a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Load configuration first, then script controller -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
